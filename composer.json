@@ -1,0 +1,24 @@
+{
+  "name": "umit/store",
+  "type": "project",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Umit Akkaya",
+      "email": "umit_akkaya@live.nl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Store\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.1",
+    "ramsey/uuid": "^3.8",
+    "monolog/monolog": "^1.25"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5"
+  }
+}
