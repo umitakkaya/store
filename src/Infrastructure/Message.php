@@ -18,6 +18,11 @@ class Message
 		$this->createdAt = new DateTimeImmutable();
 	}
 
+	public function getName(): string
+	{
+		return $this->name;
+	}
+
 	/**
 	 * @return string[]
 	 */
