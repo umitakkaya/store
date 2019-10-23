@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Store\Repository\Mapper;
+namespace Store\Event\Mapper;
 
 use RuntimeException;
 use Store\Domain\Event\Event;
-use Store\Domain\Event\UserAddedCartItemEvent;
+use Store\Domain\Event\CartItemAddedEvent;
 use Store\Domain\Event\UserPlacedOrderEvent;
 use Store\Infrastructure\Message;
 
@@ -35,7 +35,7 @@ class EventMapper
 			return [ /* mapped event specific attributes */ ];
 		}
 
-		if ($event instanceof UserAddedCartItemEvent)
+		if ($event instanceof CartItemAddedEvent)
 		{
 			return [ /* mapped event specific attributes */ ];
 		}

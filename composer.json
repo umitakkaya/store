@@ -1,7 +1,7 @@
 {
   "name": "umit/store",
   "type": "project",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Umit Akkaya",

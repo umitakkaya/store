@@ -5,9 +5,9 @@ namespace Store\Domain\Event;
 use Store\Domain\Cart;
 use Store\Domain\CartItem;
 
-class UserAddedCartItemEvent implements Event
+class CartItemAddedEvent implements Event
 {
-	public const NAME = 'store.user.added_cart_item';
+	public const NAME = 'store.cart.item_added';
 
 	/** @var Cart */
 	private $cart;

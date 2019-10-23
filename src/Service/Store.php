@@ -2,8 +2,9 @@
 
 namespace Store\Service;
 
+use Store\Domain\Cart;
 use Store\Domain\User;
-use Store\Repository\EventRepository;
+use Store\Event\EventHandler;
 use Store\Repository\UserRepository;
 
 class Store
@@ -11,20 +12,22 @@ class Store
 	/** @var UserRepository */
 	private $userRepository;
 
-	/** @var EventRepository */
-	private $eventRepository;
+	/** @var EventHandler */
+	private $eventHandler;
 
-	public function __construct(UserRepository $userRepository, EventRepository $eventRepository)
+	public function __construct(UserRepository $userRepository, EventHandler $eventHandler)
 	{
 		$this->userRepository = $userRepository;
-		$this->eventRepository = $eventRepository;
+		$this->eventHandler   = $eventHandler;
 	}
 
-	public function checkout(User $user)
+	public function checkout(User $user): void
 	{
 		$user->pay();
 
 		$this->userRepository->persist($user);
-		$this->eventRepository->publish($user->pullEvents());
+
+		$this->eventHandler->publish($user->getCart()->pullEvents());
+		$this->eventHandler->publish($user->pullEvents());
 	}
 }

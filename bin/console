@@ -1,15 +1,15 @@
+#!/usr/bin/env php
 <?php declare(strict_types=1);
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidFactory;
 use Store\Domain\Cart;
 use Store\Domain\Item;
 use Store\Domain\User;
 use Store\Infrastructure\LoggingMessageBus;
-use Store\Repository\EventRepository;
-use Store\Repository\Mapper\EventMapper;
+use Store\Event\EventHandler;
+use Store\Event\Mapper\EventMapper;
 use Store\Repository\UserRepository;
 use Store\Service\Store;
 
@@ -17,7 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $service = new Store(
 	new UserRepository(),
-	new EventRepository(
+	new EventHandler(
 		new LoggingMessageBus(
 			new Logger('store_message_bus', [new StreamHandler(fopen('php://stdout', 'wb'))])
 		),

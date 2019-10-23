@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Store\Repository;
+namespace Store\Event;
 
 use Store\Domain\Event\Event;
 use Store\Infrastructure\MessageBus;
-use Store\Repository\Mapper\EventMapper;
+use Store\Event\Mapper\EventMapper;
 
-class EventRepository
+class EventHandler
 {
 	private $messageBus;
 	private $mapper;
@@ -14,7 +14,7 @@ class EventRepository
 	public function __construct(MessageBus $messageBus, EventMapper $mapper)
 	{
 		$this->messageBus = $messageBus;
-		$this->mapper = $mapper;
+		$this->mapper     = $mapper;
 	}
 
 	/**

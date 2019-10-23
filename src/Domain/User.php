@@ -2,14 +2,12 @@
 
 namespace Store\Domain;
 
-use Store\Domain\Event\Event;
-use Store\Domain\Event\UserAddedCartItemEvent;
+use Store\Domain\Event\EventRecorder;
 use Store\Domain\Event\UserPlacedOrderEvent;
 
 class User
 {
-	/** @var Event[] */
-	private $events = [];
+	use EventRecorder;
 
 	/** @var Cart */
 	private $cart;
@@ -19,13 +17,16 @@ class User
 		$this->cart = $cart;
 	}
 
+	public function getCart(): Cart
+	{
+		return $this->cart;
+	}
+
 	public function order(Item $item, int $quantity): void
 	{
 		$cartItem = new CartItem($item, $quantity);
 
 		$this->cart->add($cartItem);
-
-		$this->events[] = new UserAddedCartItemEvent($this->cart, $cartItem);
 	}
 
 	public function pay(): void
@@ -35,15 +36,5 @@ class User
 		$this->events[] = new UserPlacedOrderEvent($this, $this->cart);
 
 		$this->cart->empty();
-	}
-
-	/** @return Event[] */
-	public function pullEvents(): array
-	{
-		$events = $this->events;
-
-		$this->events = [];
-
-		return $events;
 	}
 }
