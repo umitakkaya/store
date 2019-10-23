@@ -1,0 +1,25 @@
+@startuml
+
+Event ..> CartItemAddedEvent
+Event ..> UserPlacedOrderEvent
+
+interface Event {
+    +getName(): string
+}
+
+class CartItemAddedEvent {
+	-Cart cart
+	-CartItem addedItem
+	+getName(): string
+	+getAddedCartItem(): CartItem
+	+getCart(): Cart
+}
+
+class UserPlacedOrderEvent {
+	-User user
+	-Cart cart
+    +getName(): string
+	+getUser(): User
+	+getCart(): Cart
+}
+@enduml

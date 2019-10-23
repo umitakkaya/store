@@ -1,0 +1,44 @@
+@startuml
+
+User *-right- Cart
+Cart o-down- "0..*" CartItem: contains
+CartItem *-left- Item
+
+class User {
+    -Cart cart
+    -Event[] events
+    +pay(): void
+    +order(Item $item, int $quantity): void
+    +pullEvents(): Event[]
+}
+
+interface IteratorAggregate {
+	+getIterator(): Traversable
+}
+
+class Cart extends IteratorAggregate {
+    -CartItem[] items
+    -Event[] events
+    +add(CartItem $item): self
+    +empty(): void
+    +pullEvents(): Event[]
+}
+
+class CartItem {
+    -Item item
+    -int quantity
+    +__construct(Item $item, int $quantity)
+    +getItem(): Item
+    +getQuantity(): int
+}
+
+class Item {
+    -UuidInterface id
+    -string name
+    -float price
+    +__construct(UuidInterface $id, string $name, float $price)
+    +getId(): UuidInterface
+    +getName(): string
+    +getPrice(): float
+}
+@enduml

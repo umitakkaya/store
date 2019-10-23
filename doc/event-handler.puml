@@ -1,0 +1,32 @@
+@startuml
+
+EventHandler <-- MessageBus
+EventHandler <-- EventMapper
+MessageBus o-- Message
+
+class EventHandler {
+    -MessageBus messageBus
+    -EventMapper mapper
+    +publish(Event[] $events): void
+}
+
+class EventMapper {
+    +mapEventsToMessages(Event[] $events): Message[]
+    -mapEventToMessage(Event $event): Message
+    -mapEventAttributes(Event $event): array
+}
+
+class Message {
+    -string name
+    -DateTimeInterface createdAt
+    -array attributes
+    +getName(): string
+    +getHeaders(): string[]
+    +getAttributes(): array
+}
+
+interface MessageBus {
+    publish(Message[] $messages): void
+}
+
+@enduml

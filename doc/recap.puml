@@ -1,0 +1,45 @@
+@startuml
+
+package Store\Infrastructure {
+	class MessageBus {
+		publish(Message[] $messages): void;
+	}
+}
+
+package Store
+{
+	Store <-- User
+	User <-left- Cart
+
+	EventHandler <-- Store
+    EventHandler -> MessageBus
+
+
+	class User {
+	    -Cart cart
+	    -Event[] events
+	    +pay(): void
+	    +order(Item $item, int $quantity): void
+	    +pullEvents(): Event[]
+	}
+
+	class Cart {
+	    -CartItem[] items
+	    -Event[] events
+	    +add(CartItem $item): self
+	    +empty(): void
+	    +pullEvents(): Event[]
+	}
+
+	class Store {
+	   -UserRepository userRepository
+	   -EventHandler eventHandler
+	   +checkout(User user): void
+	}
+
+
+	class EventHandler {
+        +publish(Event[] events): void
+    }
+}
+@enduml

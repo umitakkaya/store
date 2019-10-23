@@ -1,0 +1,11 @@
+@startuml
+
+class User {
+    -Cart cart
+    -Event[] events
+    +pay(): void
+    +order(Item $item, int $quantity): void
+    +pullEvents(): Event[]
+}
+
+@enduml

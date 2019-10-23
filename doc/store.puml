@@ -1,0 +1,9 @@
+@startuml
+
+class Store {
+   -UserRepository userRepository
+   -EventHandler eventHandler
+   +checkout(User user): void
+}
+
+@enduml
